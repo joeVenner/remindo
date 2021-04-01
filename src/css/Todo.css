@@ -1,0 +1,78 @@
+.gray{
+    border-left: 5px solid gray;
+    width: 100%;
+
+}
+.red{
+    border-left: 5px solid red;
+    width: 100%;
+}
+.orange{
+    border-left: 5px solid indigo;
+    width: 100%;
+
+}
+
+.text_todo {
+    margin: 10px 5px 10px 5px;
+}
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #ffa07a;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #3f51b5;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+.todos_backgroud{
+    background-color:lightsalmon;
+    border-radius: 10px;
+    margin-top: 30px;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    padding-left: 10px;
+    padding-right: 15px;
+    width: 64;
+    height: 500px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border-style:solid;
+    border-radius: 10px;
+
+}
+
+.add{
+
+    border-style:solid;
+    border-radius: 10px;
+    padding: 10px 10px 10px 10px;
+
+}
+
+.title{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 30px;
+    padding-top: 30px;
+    
+
+}
+.taskimage{
+    /* height: 100px;
+    width: 100px;
+    border-bottom: 50px; */
+}
