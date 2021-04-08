@@ -1,6 +1,7 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
+import TextField from '@material-ui/core/TextField';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
@@ -21,23 +22,31 @@ function getSteps() {
   return ['Title', 'Description', 'Importance'];
 }
 
+
 function getStepContent(stepIndex) {
   switch (stepIndex) {
     case 0:
-      return 'Please update the Todo tile...';
+      return 'Set title';
     case 1:
-      return 'Please update the Todo Description...';
+      return 'Set Description';
     case 2:
-      return 'Please set the importance...';
+      return 'Set importance';
     default:
       return 'Unknown stepIndex';
   }
 }
 
-function UpdateTodoWithStepper({id,switchtodo}){
+function UpdateTodoWithStepper({id,switchtodo,updatetodo}){
     const classes = useStyles();
     const [activeStep, setActiveStep] = useState(0);
     const [display, setDisplay] = useState("block");
+    const [Title, setTitle] = useState("");
+    const [Description, setDescription] = useState("");
+    const [Importance, setImportance] = useState("");
+    const [Textvalue, setTextvalue] = useState("");
+
+
+    const NewTodo = {"id":id,"title":Title,"Description":Description,"Importance":Importance};
     const steps = getSteps();
 
   const handleNext = () => {
@@ -45,30 +54,51 @@ function UpdateTodoWithStepper({id,switchtodo}){
             setDisplay("none");
             setActiveStep(0);
             switchtodo("block");
+            updatetodo(NewTodo);
 
+            
       }
       else{
           setActiveStep((prevActiveStep) => prevActiveStep + 1);
       }
+      setTextvalue("");
+
   };
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    setTextvalue("");
   };
 
   const handleReset = () => {
     setActiveStep(0);
+    setTextvalue("");
+  };
+  const handleChange = (e) => {
+    activeStep=== 0 ? setTitle(e.target.value) : ( activeStep=== 1 ? setDescription(e.target.value) : setImportance(e.target.value) );
+    setTextvalue(e.target.value);
+    
+    
   };
 
   return (
     <div style={{"width":"100%","display":display}}>
-      <Stepper activeStep={activeStep} alternativeLabel>
+
+
+      <div style={{padding:"55px"}}>
+       <TextField id="standard-basic" label={steps[activeStep]} value={Textvalue} onChange={handleChange} />
+      </div>
+
+      <div>
+      <Stepper style={{backgroundColor:'transparent'}} activeStep={activeStep} alternativeLabel>
         {steps.map((label) => (
           <Step key={label}>
             <StepLabel>{label}</StepLabel>
           </Step>
         ))}
       </Stepper>
+      </div>
+
       <div>
         {activeStep === steps.length ? (
           <div>
@@ -83,10 +113,12 @@ function UpdateTodoWithStepper({id,switchtodo}){
                 disabled={activeStep === 0}
                 onClick={handleBack}
                 className={classes.backButton}
+                color="secondary"
+                variant="contained"
               >
                 Back
               </Button>
-              <Button variant="contained" color="primary" onClick={handleNext}>
+              <Button variant="contained" color="primary" onClick={handleNext} type="submit">
                 {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
               </Button>
             </div>

@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState} from 'react';
 import {Button,TextField,Accordion,AccordionSummary,Typography,AccordionDetails,Container,Grid,MenuItem,Menu} from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import '../css/Todo.css';
@@ -46,9 +46,14 @@ function Todo() {
     const ChangeTodo = (data)=>{
         setDisplayV(data);
     }
+    const updateEditedTodo = (data)=>{
+        var newTodos = todos.filter((todo)=>todo.id !== data.id);
+        newTodos.push(data);
+        setTodos(newTodos);
+    }
     const editTodo = (id)=>{
         setDisplayV("none");
-        setupdatetodo(<UpdateTodoWithStepper id={id} displayV={displayV} switchtodo={ChangeTodo}/>);
+        setupdatetodo(<UpdateTodoWithStepper id={id} displayV={displayV} switchtodo={ChangeTodo} updatetodo={updateEditedTodo}/>);
     }
     const deleteTodo = (id)=>{
         var newTodos = todos.filter((todo)=>todo.id !== id);
@@ -155,7 +160,7 @@ function Todo() {
         <div className="todos_backgroud">
          <ul style={{paddingLeft:0}}>
             <div>
-            {displayV == "block" ? 
+            {displayV === "block" ? 
             TodosList
                 :
             updatetodo}
